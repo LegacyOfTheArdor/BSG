@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-	private int health = 0;
-	private int speed = 0;
-	private int cost = 0;
-	private int damage = 0;
-
-	public int sethealth;
-	public int setspeed;
-	public int setcost;
-	public int setdamage;
+	protected float health;
+	protected float speed;
+	protected float cost;
+	protected float damage;
 
 	// Start is called before the first frame update
 	void Start()
@@ -25,4 +20,6 @@ public class Card : MonoBehaviour
     {
         
     }
+
+	
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class Basic_Man : Card
 {
 
-	GameObject Field;
 	
 	
     // Start is called before the first frame update
@@ -31,10 +30,22 @@ public class Basic_Man : Card
         return damage;
     }
 
-	void OnMouseDown() 
+	void OnMouseDown()
 	{
-		Field.GetComponent<playingField>().playerMoves(Attack());
-		Debug.Log("press");
+		if (isOnField == false)
+		{
+			MoveToField(Myself);
+		}
+		else 
+		{
+			Attack();
+			Debug.Log("attack");
+		}
 	}
-	
+
+	void OnMouseUp()
+	{
+		
+	}
+
 }

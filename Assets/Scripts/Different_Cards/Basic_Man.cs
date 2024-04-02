@@ -29,6 +29,11 @@ public class Basic_Man : Card
     {
         return damage;
     }
+
+	void GetSpeed() 
+	{
+		Field.SendMessage("ChangeSpeed", speed);
+	}
 	
 	
 	void OnMouseDown()

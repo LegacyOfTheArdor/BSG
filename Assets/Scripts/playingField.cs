@@ -13,6 +13,7 @@ public class PlayingField : MonoBehaviour
 
 	List<List<GameObject>> PlayerONEmoves = new List<List<GameObject>>(10);
 	List<List<GameObject>> PlayerTWOmoves = new List<List<GameObject>>(10);
+	List<List<GameObject>> TurnOrder = new List<List<GameObject>>(20);
 
 
 	private bool PlayerONEturn = true;
@@ -35,6 +36,8 @@ public class PlayingField : MonoBehaviour
 	public GameObject ChooseEnemy;
 
 	public List<GameObject> move;
+
+	float TempSpeed;
 
 	// Start is called before the first frame update
 	void Start()
@@ -119,24 +122,76 @@ public class PlayingField : MonoBehaviour
 		else if(PlayerONEturn == false && PlayerTWOturn == true)
 		{
 			PlayerTWOturn = false;
-			PlayerONEturn = true;
 			
-		
-			
-
 			FlipBoard();
 		}
 		else 
 		{
-			
+
+			PlayerONEturn = true;
 			FlipBoard();
-			
 
 		}
 	}
+	void MakeTurnOrder() 
+	{
+		int minLength = Mathf.Min(PlayerONEmoves.Count, PlayerTWOmoves.Count);
 
-	void AddTurn() 
-	{ 
+
+		for (int i = 0; i < minLength; i++)
+		{
+			List<GameObject> list1 = PlayerONEmoves[i];
+			List<GameObject> list2 = PlayerTWOmoves[i];
+
+			float speed1;
+			float speed2;
+
+			list1[0].SendMessage("GetSpeed");
+			speed1 = TempSpeed;
+			TempSpeed = 0;
+
+			list2[0].SendMessage("GetSpeed");
+			speed2 = TempSpeed;
+			TempSpeed = 0;
+
+			if(speed1 > speed2) 
+			{
+				TurnOrder.Add(list1);
+				TurnOrder.Add(list2);
+			}
+			else if(speed1 < speed2) 
+			{
+				TurnOrder.Add(list2);
+				TurnOrder.Add(list1);
+
+			}
+			else 
+			{
+				int rnd = Random.RandomRange(0, 10);
+				if (rnd % 2 ==0) 
+				{
+					TurnOrder.Add(list1);
+					TurnOrder.Add(list2);
+				}
+				else 
+				{
+					TurnOrder.Add(list2);
+					TurnOrder.Add(list1);
+				}
+			}
+		}
+
+
+	}
+
+	void ChangeSpeed(float speed) 
+	{
+		TempSpeed = speed;
+	}
+
+
+	void DoTurns() 
+	{
 		
 	}
 
@@ -194,8 +249,9 @@ public class PlayingField : MonoBehaviour
 			
 
 		}
-		else 
+		else
 		{
+
 			POVhealth.value = 1;
 			POVactionpoints.value = 1; 
 			EnemyHealth.value = 1;

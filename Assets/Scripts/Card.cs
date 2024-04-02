@@ -13,8 +13,9 @@ public class Card : MonoBehaviour
 	public GameObject Myself;
 	protected float startMousePosition;
 	protected float endMousePosition;
-	protected int handIndex;
-	protected int fieldIndex;
+	protected int? handIndex;
+	protected int? fieldIndex;
+	public bool usedOnfield;
 
 
 	// Start is called before the first frame update
@@ -34,15 +35,18 @@ public class Card : MonoBehaviour
 		isOnField = value;
 		Debug.Log("words field stuff");
 	}
-	public void SetHandIndex(int index) 
+
+	public void SetFieldIndex(int index)
 	{
-		handIndex = index;
+		fieldIndex = index;
 	}
 
 	protected void MoveToField(GameObject thisCard)
 	{
-		
-		transform.parent.parent.GetComponent<Player>().moveToField(thisCard);
+
+		transform.parent.parent.parent.GetComponent<Player>().MoveToField(thisCard);
 	}
+
+
 
 }

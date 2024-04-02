@@ -7,6 +7,8 @@ TagManager:
   - Field
   - player1
   - player2
+  - player1card
+  - player2card
   layers:
   - Default
   - TransparentFX

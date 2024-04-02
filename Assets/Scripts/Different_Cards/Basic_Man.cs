@@ -29,23 +29,39 @@ public class Basic_Man : Card
     {
         return damage;
     }
-
+	
+	
 	void OnMouseDown()
 	{
-		if (isOnField == false)
-		{
-			MoveToField(Myself);
+		
+		if (isOnField == false) 
+		{ 
+			startMousePosition = Input.mousePosition.y;
+			Debug.Log("press");
+			//Myself = this.GameObject();
 		}
-		else 
-		{
-			Attack();
-			Debug.Log("attack");
-		}
+
 	}
 
 	void OnMouseUp()
 	{
-		
+		if (isOnField == false )
+		{
+			endMousePosition = Input.mousePosition.y;
+
+			float mouseDrag = startMousePosition - endMousePosition;
+			
+
+			MoveToField(Myself);
+			
+		}
+		else 
+		{
+			GameObject field = GameObject.FindGameObjectWithTag("Field");
+
+			field.GetComponent<PlayingField>().move.Add(Myself);
+			Debug.Log("added to move");
+		}
 	}
 
 }
